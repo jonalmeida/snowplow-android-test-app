@@ -1,0 +1,42 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 19
+    buildToolsVersion "20.0.0"
+
+    defaultConfig {
+        applicationId "testApp.com.myapplication"
+        minSdkVersion 18
+        targetSdkVersion 19
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            runProguard false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/DEPENDENCIES'
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.snowplowanalytics:snowplow-android-tracker:0.1.1'
+    compile 'com.snowplowanalytics:snowplow-java-tracker-core:0.1.2'
+//    compile 'com.google.android.gms:play-services:5.0.89'
+}
+
+repositories {
+//    maven {
+//        url "http://maven.snplow.com/releases"
+//    }
+    mavenLocal()
+}
