@@ -24,6 +24,15 @@ import java.util.List;
 
 public class MyActivity extends Activity {
 
+    private enum TrackerEvents {
+        trackScreenView,
+        trackPageView,
+        trackEcommItem,
+        trackEcommTransaction,
+        trackStructured,
+        trackUnStructured
+    }
+
     Emitter emitter = null;
     Subject subject = null;
     Tracker tracker = null;
@@ -34,6 +43,7 @@ public class MyActivity extends Activity {
     BufferOption bufferOption = BufferOption.Default;
 
     final String TAG = MyActivity.class.getName();
+    TrackerEvents chosenEvent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,6 +159,53 @@ public class MyActivity extends Activity {
                         break;
                     default:
                         method = HttpMethod.POST;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
+
+    private void addSpinnerTracker() {
+        final Spinner spinner = (Spinner) findViewById(R.id.spinnerTracker);
+
+        List<String> list = new ArrayList<String>();
+        list.add("trackScreenView");
+        list.add("trackPageView");
+        list.add("trackEcommItem");
+        list.add("trackEcommTransaction");
+        list.add("trackStructured");
+        list.add("trackUnStructured");
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
+        spinner.setAdapter(dataAdapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                switch ((int) l) {
+                    case 0:
+                        // Choose trackScreenView
+                        chosenEvent = TrackerEvents.trackScreenView;
+                        break;
+                    case 1:
+                        // Choose trackPageView
+                        chosenEvent = TrackerEvents.trackPageView;
+                        break;
+                    case 2:
+                        // Choose trackEcommItem
+                        chosenEvent = TrackerEvents.trackEcommItem;
+                        break;
+                    case 3:
+                        // Choose trackEcommTransaction
+                        chosenEvent = TrackerEvents.trackEcommTransaction;
+                    case 4:
+                        // Choose trackStructured
+                        chosenEvent = TrackerEvents.trackStructured;
+                    case 5:
+                        // Choose trackStructured
+                        chosenEvent = TrackerEvents.trackUnStructured;
                 }
             }
 

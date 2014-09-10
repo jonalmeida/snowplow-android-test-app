@@ -30,28 +30,30 @@
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/spinnerHttpMethod"
+        android:layout_below="@+id/editTextEndpoint"
+        android:layout_alignParentStart="true" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/spinnerBufferOption"
         android:spinnerMode="dropdown"
         android:layout_below="@+id/spinnerHttpMethod"
-        android:layout_alignParentStart="true" />
-        <!--android:layout_toStartOf="@+id/button_event1"-->
+        android:layout_alignParentStart="true"
         android:layout_alignEnd="@+id/spinnerHttpMethod" />
 
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/spinnerHttpMethod"
-        android:layout_below="@+id/editTextEndpoint"
-        android:layout_alignParentStart="true" />
-        <!--android:layout_toEndOf="@+id/button_event1"-->
-        android:spinnerMode="dropdown"
+        android:id="@+id/spinnerTracker"
         android:layout_below="@+id/spinnerBufferOption"
         android:layout_alignParentStart="true" />
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@+id/spinnerBufferOption">
+        android:layout_below="@+id/spinnerTracker">
 
         <Button
             android:layout_width="wrap_content"
@@ -59,14 +61,6 @@
             android:text="Fire Event"
             android:id="@+id/buttonFireEvent"
             android:layout_centerInParent="true" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Update Tracker"
-            android:layout_alignTop="@+id/buttonFireEvent"
-            android:layout_toStartOf="@+id/buttonFireEvent"
-            android:id="@+id/buttonUpdateTracker" />
     </RelativeLayout>
 
 </RelativeLayout>
