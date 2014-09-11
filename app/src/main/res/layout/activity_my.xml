@@ -52,8 +52,17 @@
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@+id/spinnerTracker">
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true">
+
+        <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Update Tracker"
+        android:layout_alignTop="@+id/buttonFireEvent"
+        android:layout_toStartOf="@+id/buttonFireEvent"
+        android:id="@+id/buttonUpdateTracker" />
 
         <Button
             android:layout_width="wrap_content"
@@ -61,6 +70,24 @@
             android:text="Fire Event"
             android:id="@+id/buttonFireEvent"
             android:layout_centerInParent="true" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Context"
+            android:id="@+id/checkBoxContext"
+            android:layout_toEndOf="@+id/buttonFireEvent"
+            android:checked="false"
+            android:layout_alignBottom="@+id/buttonFireEvent" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Timestamp"
+            android:id="@+id/checkBoxTimestamp"
+            android:layout_above="@+id/checkBoxContext"
+            android:layout_toEndOf="@+id/buttonFireEvent"
+            android:checked="false" />
     </RelativeLayout>
 
 </RelativeLayout>

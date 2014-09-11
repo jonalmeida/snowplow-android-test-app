@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -17,9 +19,13 @@ import com.snowplowanalytics.snowplow.tracker.android.Tracker;
 import com.snowplowanalytics.snowplow.tracker.android.emitter.Emitter;
 import com.snowplowanalytics.snowplow.tracker.core.emitter.BufferOption;
 import com.snowplowanalytics.snowplow.tracker.core.emitter.HttpMethod;
+import com.snowplowanalytics.snowplow.tracker.core.payload.SchemaPayload;
+import com.snowplowanalytics.snowplow.tracker.core.payload.TrackerPayload;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 
 public class MyActivity extends Activity {
@@ -86,6 +92,9 @@ public class MyActivity extends Activity {
         final Button button = (Button) findViewById(R.id.buttonFireEvent);
         final Button buttonUpdate = (Button) findViewById(R.id.buttonUpdateTracker);
 
+        final CheckBox checkBoxTimestamp = (CheckBox) findViewById(R.id.checkBoxTimestamp);
+        final CheckBox checkBoxContext = (CheckBox) findViewById(R.id.checkBoxContext);
+
         buttonUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -100,12 +109,13 @@ public class MyActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Log.v(TAG, "button_event1 clicked");
-                tracker.trackScreenView("Screen 1", "screen1");
+                sendTrackerEvent(checkBoxContext.isChecked(), checkBoxTimestamp.isChecked());
             }
         });
 
         addSpinnerBufferOption();
         addSpinnerHttpMethod();
+        addSpinnerTracker();
     }
 
     private void addSpinnerBufferOption() {
@@ -122,12 +132,15 @@ public class MyActivity extends Activity {
                 switch ((int)l) {
                     case 0:
                         bufferOption = BufferOption.Default;
+                        emitter.setBufferOption(bufferOption);
                         break;
                     case 1:
                         bufferOption = BufferOption.Instant;
+                        emitter.setBufferOption(bufferOption);
                         break;
                     default:
                         bufferOption = BufferOption.Default;
+                        emitter.setBufferOption(bufferOption);
                 }
                 Log.v(TAG, "Set bufferOption to: " + bufferOption.toString());
             }
@@ -181,39 +194,59 @@ public class MyActivity extends Activity {
         list.add("trackUnStructured");
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
         spinner.setAdapter(dataAdapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                switch ((int) l) {
-                    case 0:
-                        // Choose trackScreenView
-                        chosenEvent = TrackerEvents.trackScreenView;
-                        break;
-                    case 1:
-                        // Choose trackPageView
-                        chosenEvent = TrackerEvents.trackPageView;
-                        break;
-                    case 2:
-                        // Choose trackEcommItem
-                        chosenEvent = TrackerEvents.trackEcommItem;
-                        break;
-                    case 3:
-                        // Choose trackEcommTransaction
-                        chosenEvent = TrackerEvents.trackEcommTransaction;
-                    case 4:
-                        // Choose trackStructured
-                        chosenEvent = TrackerEvents.trackStructured;
-                    case 5:
-                        // Choose trackStructured
-                        chosenEvent = TrackerEvents.trackUnStructured;
-                }
-            }
+    }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
+    private void sendTrackerEvent(Boolean sendContext, Boolean sendTimestamp) {
+        final Spinner spinner = (Spinner) findViewById(R.id.spinnerTracker);
+        int l = spinner.getSelectedItemPosition();
+        Log.v(TAG, "Spinner position: " + l);
+        List<SchemaPayload> contextList = null;
+        long timestamp = 0;
 
-            }
-        });
+        if (sendContext) {
+            // Create fake context
+            contextList = new ArrayList<SchemaPayload>();
+            TrackerPayload trackerPayload = new TrackerPayload();
+            SchemaPayload schemaPayload = new SchemaPayload();
+            trackerPayload.add("importantKey", "importantValue");
+            trackerPayload.add("someKey", "someValue");
+            schemaPayload.setSchema("iglu:com.snowplowanalytics.snowplow/example/jsonschema/1-0-0");
+            schemaPayload.setData(trackerPayload);
+            contextList.add(schemaPayload);
+        }
+
+        if (sendTimestamp) {
+            timestamp = 1234;
+        }
+
+        switch (l) {
+            case 0:
+                // Choose trackScreenView
+                tracker.trackScreenView("Main Screen", "screen1", contextList, timestamp);
+                break;
+            case 1:
+                // Choose trackPageView
+                tracker.trackPageView("www.example.com", "Example Page", "www.referrer.com",
+                        contextList, timestamp);
+                break;
+            case 2:
+                // Choose trackEcommItem
+                chosenEvent = TrackerEvents.trackEcommItem;
+                break;
+            case 3:
+                // Choose trackEcommTransaction
+                chosenEvent = TrackerEvents.trackEcommTransaction;
+                break;
+            case 4:
+                // Choose trackStructured
+                chosenEvent = TrackerEvents.trackStructured;
+                break;
+            case 5:
+                // Choose trackStructured
+                chosenEvent = TrackerEvents.trackUnStructured;
+                break;
+        }
+
     }
 
 }
