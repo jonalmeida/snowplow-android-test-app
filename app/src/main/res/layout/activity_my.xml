@@ -9,15 +9,6 @@
     tools:context=".MyActivity"
     android:id="@+id/MainActivity">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/editTextEndpoint"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:inputType="textUri"
-        android:layout_toEndOf="@+id/textViewEndpoint" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -27,67 +18,86 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
 
-    <Spinner
+    <EditText
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editTextEndpoint"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:inputType="textUri"
+        android:layout_toEndOf="@+id/textViewEndpoint" />
+
+    <Spinner
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/spinnerHttpMethod"
         android:layout_below="@+id/editTextEndpoint"
         android:layout_alignParentStart="true" />
 
-    <Spinner
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/spinnerBufferOption"
-        android:spinnerMode="dropdown"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Update the tracker if the above options were modified"
+        android:id="@+id/textViewUpdate"
         android:layout_below="@+id/spinnerHttpMethod"
-        android:layout_alignParentStart="true"
-        android:layout_alignEnd="@+id/spinnerHttpMethod" />
+        android:layout_alignStart="@+id/spinnerHttpMethod"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:password="false"
+        android:textAlignment="center" />
 
-    <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinnerTracker"
-        android:layout_below="@+id/spinnerBufferOption"
-        android:layout_alignParentStart="true" />
-
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true">
-
-        <Button
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Update Tracker"
-        android:layout_alignTop="@+id/buttonFireEvent"
-        android:layout_toStartOf="@+id/buttonFireEvent"
-        android:id="@+id/buttonUpdateTracker" />
+        android:id="@+id/buttonUpdateTracker"
+        android:layout_below="@+id/textViewUpdate"
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/spinnerBufferOption" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Fire Event"
-            android:id="@+id/buttonFireEvent"
-            android:layout_centerInParent="true" />
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinnerBufferOption"
+        android:spinnerMode="dropdown"
+        android:layout_below="@+id/buttonUpdateTracker"
+        android:layout_alignParentStart="true" />
 
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Context"
-            android:id="@+id/checkBoxContext"
-            android:layout_toEndOf="@+id/buttonFireEvent"
-            android:checked="false"
-            android:layout_alignBottom="@+id/buttonFireEvent" />
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinnerTracker"
+        android:spinnerMode="dropdown"
+        android:layout_below="@+id/spinnerBufferOption"
+        android:layout_alignParentStart="true" />
 
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Timestamp"
-            android:id="@+id/checkBoxTimestamp"
-            android:layout_above="@+id/checkBoxContext"
-            android:layout_toEndOf="@+id/buttonFireEvent"
-            android:checked="false" />
-    </RelativeLayout>
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Context"
+        android:id="@+id/checkBoxContext"
+        android:layout_toEndOf="@+id/buttonFireEvent"
+        android:checked="false"
+        android:layout_above="@+id/buttonFireEvent"
+        android:layout_alignParentStart="true" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Timestamp"
+        android:id="@+id/checkBoxTimestamp"
+        android:layout_toEndOf="@+id/checkBoxContext"
+        android:checked="false"
+        android:layout_alignTop="@+id/checkBoxContext" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fire Event"
+        android:id="@+id/buttonFireEvent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/spinnerTracker" />
 
 </RelativeLayout>

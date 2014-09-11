@@ -124,7 +124,8 @@ public class MyActivity extends Activity {
         List<String> list = new ArrayList<String>();
         list.add("BufferOption.Default");
         list.add("BufferOption.Instant");
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_dropdown_item, list);
         spinner.setAdapter(dataAdapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -158,7 +159,8 @@ public class MyActivity extends Activity {
         List<String> list = new ArrayList<String>();
         list.add("HttpMethod.POST");
         list.add("HttpMethod.GET");
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_dropdown_item, list);
         spinner.setAdapter(dataAdapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -192,7 +194,8 @@ public class MyActivity extends Activity {
         list.add("trackEcommTransaction");
         list.add("trackStructured");
         list.add("trackUnStructured");
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_dropdown_item, list);
         spinner.setAdapter(dataAdapter);
     }
 
