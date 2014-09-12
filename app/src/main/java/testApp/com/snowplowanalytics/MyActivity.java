@@ -17,14 +17,17 @@ import android.widget.Spinner;
 import com.snowplowanalytics.snowplow.tracker.android.Subject;
 import com.snowplowanalytics.snowplow.tracker.android.Tracker;
 import com.snowplowanalytics.snowplow.tracker.android.emitter.Emitter;
+import com.snowplowanalytics.snowplow.tracker.core.TransactionItem;
 import com.snowplowanalytics.snowplow.tracker.core.emitter.BufferOption;
 import com.snowplowanalytics.snowplow.tracker.core.emitter.HttpMethod;
 import com.snowplowanalytics.snowplow.tracker.core.payload.SchemaPayload;
 import com.snowplowanalytics.snowplow.tracker.core.payload.TrackerPayload;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 
@@ -55,6 +58,9 @@ public class MyActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
+        getFragmentManager().beginTransaction()
+                .replace(android.R.id.content, new SettingsFragment())
+                .commit();
     }
 
 
@@ -234,19 +240,30 @@ public class MyActivity extends Activity {
                 break;
             case 2:
                 // Choose trackEcommItem
-                chosenEvent = TrackerEvents.trackEcommItem;
                 break;
             case 3:
                 // Choose trackEcommTransaction
-                chosenEvent = TrackerEvents.trackEcommTransaction;
+                TransactionItem item1 = new TransactionItem("item1234_1", "sku1234", 100.0, 1,
+                        "Cookies", "Food", "CAD");
+                TransactionItem item2 = new TransactionItem("item1234_2", "sku9845", 25.0, 1,
+                        "Milk", "Dairy", "CAD");
+                List<TransactionItem> items = new LinkedList<TransactionItem>();
+                items.add(item1);
+                items.add(item2);
+                tracker.trackEcommerceTransaction("item1234", 125.0, "www.affliate.com", 40.0, 10.0,
+                        "Toronto", "Ontario", "Canada", "CAD", items, contextList, timestamp);
                 break;
             case 4:
                 // Choose trackStructured
-                chosenEvent = TrackerEvents.trackStructured;
+                tracker.trackStructuredEvent("structCategory", "structAction", "Text Label",
+                        "Some property", 5, contextList, timestamp);
                 break;
             case 5:
-                // Choose trackStructured
-                chosenEvent = TrackerEvents.trackUnStructured;
+                // Choose trackUnstructured
+                Map<String, Object> unstructuredObject = new HashMap<String, Object>();
+                unstructuredObject.put("eventData", "someEventDataValue");
+                unstructuredObject.put("moreData", "moreDataValue");
+                tracker.trackUnstructuredEvent(unstructuredObject, contextList, timestamp);
                 break;
         }
 
