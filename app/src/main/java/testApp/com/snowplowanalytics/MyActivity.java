@@ -196,7 +196,6 @@ public class MyActivity extends Activity {
         List<String> list = new ArrayList<String>();
         list.add("trackScreenView");
         list.add("trackPageView");
-        list.add("trackEcommItem");
         list.add("trackEcommTransaction");
         list.add("trackStructured");
         list.add("trackUnStructured");
@@ -239,9 +238,6 @@ public class MyActivity extends Activity {
                         contextList, timestamp);
                 break;
             case 2:
-                // Choose trackEcommItem
-                break;
-            case 3:
                 // Choose trackEcommTransaction
                 TransactionItem item1 = new TransactionItem("item1234_1", "sku1234", 100.0, 1,
                         "Cookies", "Food", "CAD");
@@ -253,12 +249,12 @@ public class MyActivity extends Activity {
                 tracker.trackEcommerceTransaction("item1234", 125.0, "www.affliate.com", 40.0, 10.0,
                         "Toronto", "Ontario", "Canada", "CAD", items, contextList, timestamp);
                 break;
-            case 4:
+            case 3:
                 // Choose trackStructured
                 tracker.trackStructuredEvent("structCategory", "structAction", "Text Label",
                         "Some property", 5, contextList, timestamp);
                 break;
-            case 5:
+            case 4:
                 // Choose trackUnstructured
                 Map<String, Object> unstructuredObject = new HashMap<String, Object>();
                 unstructuredObject.put("eventData", "someEventDataValue");
