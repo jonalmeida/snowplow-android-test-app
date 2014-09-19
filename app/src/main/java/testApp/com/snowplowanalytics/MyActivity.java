@@ -88,7 +88,7 @@ public class MyActivity extends Activity {
         super.onStart();
 
         editText = (EditText) findViewById(R.id.editTextEndpoint);
-        editText.setText("segfault.ngrok.com");
+//        editText.setText("segfault.ngrok.com");
 
 
         subject = new Subject(MyActivity.this.getApplicationContext());
