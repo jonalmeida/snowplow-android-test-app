@@ -30,8 +30,8 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 //    compile 'com.google.android.gms:play-services:5.0.89'
-    compile 'com.snowplowanalytics:snowplow-android-tracker:0.1.2'
-    compile 'com.snowplowanalytics:snowplow-java-tracker-core:0.1.3'
+    compile 'com.snowplowanalytics:snowplow-android-tracker:0.1.3'
+    compile 'com.snowplowanalytics:snowplow-java-tracker-core:0.1.4'
     compile 'com.android.support:support-v4:20.0.0'
 }
 
@@ -39,5 +39,5 @@ repositories {
     maven {
         url "http://maven.snplow.com/releases"
     }
-    mavenLocal()
+//    mavenLocal()
 }
